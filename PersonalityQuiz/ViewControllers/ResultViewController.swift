@@ -30,8 +30,9 @@ class ResultViewController: UIViewController {
     
     private func findResult() -> Animal? {
         var chosenAnimal: [Animal : Int] = [:]
+        let animals = answers.map { $0.animal }
         
-        [Animal.cat, Animal.dog, Animal.rabbit, Animal.turtle].forEach { animal in
+        animals.forEach { animal in
             let countAnsvers = howManyTimes(in: answers, count: animal)
             chosenAnimal[animal] = countAnsvers
         }
