@@ -12,11 +12,6 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var youLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
-    // 1. Передать сюда массив с ответами
-    // 2. Определить наиболее часто встречающийся тип животного
-    // 3. Отобразить результат в соответствии с этим животным
-    // 4. Избавиться от кнопки возврата на предыдущий экран
-    
     var answers: [Answer]!
 
     override func viewDidLoad() {
@@ -27,11 +22,13 @@ class ResultViewController: UIViewController {
     
     private func showResult() {
         let youAnimal = findResult()
-        youLabel.text = "Вы - \(youAnimal.rawValue)"
-        descriptionLabel.text = youAnimal.definition
+        if let resultAnimal = youAnimal {
+            youLabel.text = "Вы - \(resultAnimal.rawValue)"
+            descriptionLabel.text = resultAnimal.definition
+        }
     }
     
-    private func findResult() -> Animal {
+    private func findResult() -> Animal? {
         var chosenAnimal: [Animal : Int] = [:]
         
         [Animal.cat, Animal.dog, Animal.rabbit, Animal.turtle].forEach { animal in
@@ -40,8 +37,9 @@ class ResultViewController: UIViewController {
         }
         
         let sortedDict = chosenAnimal.sorted(by: {$0.value > $1.value})
+        guard let resultAnimal = sortedDict.first?.key else { return nil }
         
-        return sortedDict.first!.key
+        return resultAnimal
     }
     
     
