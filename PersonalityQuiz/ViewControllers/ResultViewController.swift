@@ -37,7 +37,7 @@ class ResultViewController: UIViewController {
             chosenAnimal[animal] = countAnsvers
         }
         
-        let sortedDict = chosenAnimal.sorted(by: {$0.value > $1.value})
+        let sortedDict = chosenAnimal.sorted { $0.value > $1.value }
         guard let resultAnimal = sortedDict.first?.key else { return nil }
         
         return resultAnimal
